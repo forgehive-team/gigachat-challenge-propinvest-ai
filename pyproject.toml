@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "gigachat-challenge-propinvest-ai"
+name = "propinvest-ai"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -12,3 +12,6 @@ python = "^3.11"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+main = "propinvest_ai.__main__:main"
