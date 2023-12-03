@@ -25,3 +25,9 @@ async def webhook(
     data = json.loads(json.dumps(await req.json(), ensure_ascii=False))
     background_tasks.add_task(send_answer, req_id, data)
     return dict(message="pong")
+
+
+@app.post("/webhook")
+async def webhook_test(req: Request):
+    print(await req.json(), flush=True)
+    return {}
