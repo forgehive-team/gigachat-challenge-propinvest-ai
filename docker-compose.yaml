@@ -18,14 +18,43 @@ services:
     restart: always
     depends_on:
       - ai
+      - api
     volumes:
       - ./proxy/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./proxy/nginx/ai.conf:/etc/nginx/conf.d/ai.conf
+      - ./proxy/nginx/api.conf:/etc/nginx/conf.d/api.conf
       - ./proxy/certbot/conf:/etc/letsencrypt
       - ./proxy/certbot/www:/srv/certbot
     ports:
       - "80:80"
       - "443:443"
+
+  api:
+    build:
+      context: ./api
+    container_name: api
+    restart: unless-stopped
+    tty: true
+    working_dir: /app
+    depends_on:
+      - postgres
+    volumes:
+      - ./api:/app:rw
+      - ./api/docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: default
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    volumes:
+      - ./docker/postgres_data:/var/lib/postgresql/data
                                                                                                                                                                                               
   certbot:
     container_name: certbot
