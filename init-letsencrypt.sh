@@ -1,6 +1,6 @@
 #!/bin/bash
                                                                                                                                                                                               
-domains=(api-propinvest.forgehive.ru forgehive.ru)
+domains=(api-propinvest.forgehive.ru ai.forgehive.ru)
 rsa_key_size=4096
 data_path="./proxy/certbot"
 email=""
